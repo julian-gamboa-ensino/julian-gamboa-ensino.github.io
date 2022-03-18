@@ -19,8 +19,8 @@ Serviço SIMPLES para consultar uma API que lista-se as fotos contidas num bucke
 export class GetFotosBucketService {
 
   url = 
-  //"http://localhost:31/";
-  "https://docker-2-julian.herokuapp.com/";
+  //"https://docker-2-julian.herokuapp.com/";
+  "https://cv-julian-2022.s3.us-west-2.amazonaws.com/conteudo_pasta/";
   
 
 // injetando o HttpClient
@@ -34,7 +34,7 @@ export class GetFotosBucketService {
     // Obtém a lista de fotos conforme a ETIQUETA usada na consulta
     
     getUrl_imagem(etiqueta: String): Observable<String[]> {
-      return this.httpClient.get<String[]>(this.url+etiqueta)
+      return this.httpClient.get<String[]>(this.url+etiqueta+".json")
         .pipe(
           retry(2),
           catchError(this.handleError))

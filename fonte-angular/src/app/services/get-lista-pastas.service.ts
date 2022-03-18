@@ -19,10 +19,7 @@ Serviço SIMPLES para consultar uma API que lista-se as fotos contidas num bucke
 export class GetListaPastasService {
 
   url = 
-//  "http://localhost:31/lista_pastas";
-  "https://docker-2-julian.herokuapp.com/lista_pastas";
-
-  
+    "https://cv-julian-2022.s3.us-west-2.amazonaws.com/pastas.json";
 
 // injetando o HttpClient
     constructor(private httpClient: HttpClient) { }
