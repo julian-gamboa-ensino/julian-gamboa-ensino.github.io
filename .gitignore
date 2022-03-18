@@ -1,12 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/out-tsc
+fonte-angular/dist
+fonte-angular/node_modules
 
-# dependencies
-/node_modules
 
 # IDEs and editors
 /.idea
