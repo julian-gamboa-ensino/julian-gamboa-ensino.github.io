@@ -26,12 +26,8 @@ import { GetFotosBucketService } from '../../services/get-fotos-bucket.service';
 
 ////////////////////
     nome_pasta: String[]=[
-      //carro pequeno
-      'lavagem semanal',
-      'abastecimento de gasolina',
-      'emergencia de infraçao',
-      'ocorrência de furto',
-      ''      
+      'classificar',
+      'considerar validade'
     ];
 
     constructor(private activatedRoute: ActivatedRoute,private getFotosBucketService: GetFotosBucketService) {
