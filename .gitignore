@@ -1,7 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-fonte-angular/dis
+fonte-angular/dist
 fonte-angular/docs
 fonte-angular/node_modules
 
