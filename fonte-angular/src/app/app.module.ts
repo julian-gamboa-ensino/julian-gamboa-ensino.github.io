@@ -10,6 +10,7 @@ import { ListaPastasComponent } from './components/lista-pastas/lista-pastas.com
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JanelaModalClassificarComponent } from './components/janela-modal-classificar/janela-modal-classificar.component';
 import { SelectClassificadorComponent } from './components/select-classificador/select-classificador.component';
+import { ComparadorLogoTechCertificadoComponent } from './components/comparador-logo-tech-certificado/comparador-logo-tech-certificado.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SelectClassificadorComponent } from './components/select-classificador/
     NovosComponent,
     ListaPastasComponent,
     JanelaModalClassificarComponent,
-    SelectClassificadorComponent
+    SelectClassificadorComponent,
+    ComparadorLogoTechCertificadoComponent
   ],
   imports: [
     BrowserModule,
