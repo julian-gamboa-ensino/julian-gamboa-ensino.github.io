@@ -6,6 +6,19 @@ fonte-angular/docs
 fonte-angular/node_modules
 
 
+# compiled output
+fonte-janela-dupla/dist
+fonte-janela-dupla/docs
+fonte-janela-dupla/node_modules
+
+
+# compiled output
+fonte-numerador-janela-dupla/dist
+fonte-numerador-janela-dupla/docs
+fonte-numerador-janela-dupla/node_modules
+
+
+
 # IDEs and editors
 /.idea
 .project
