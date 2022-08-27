@@ -115,7 +115,7 @@ temporizador_elementos_DOM_abril_2022(inicial:string): void {
     
     //console.log(" event");
 
-  }, 1*1000); 
+  }, 3*1000); 
 }
   /*************************************************************************
   Os elementos são preparados para este componente, 
