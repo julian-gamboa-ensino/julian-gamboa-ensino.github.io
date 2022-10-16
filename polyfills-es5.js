@@ -499,7 +499,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       __webpack_require__(
-      /*! /home/julian/Desktop/julian-gamboa-ensino.github.io/fonte-numerador-janela-dupla/node_modules/@angular-devkit/build-angular/src/webpack/es5-polyfills.js */
+      /*! /home/julian/Desktop/ensino-aula-angular-net-2022/apagar/julian-gamboa-ensino.github.io/fonte-janela-dupla/node_modules/@angular-devkit/build-angular/src/webpack/es5-polyfills.js */
       "voQr");
 
       __webpack_require__(
@@ -507,7 +507,7 @@
       "R0gw");
 
       module.exports = __webpack_require__(
-      /*! /home/julian/Desktop/julian-gamboa-ensino.github.io/fonte-numerador-janela-dupla/src/polyfills.ts */
+      /*! /home/julian/Desktop/ensino-aula-angular-net-2022/apagar/julian-gamboa-ensino.github.io/fonte-janela-dupla/src/polyfills.ts */
       "hN/g");
       /***/
     },

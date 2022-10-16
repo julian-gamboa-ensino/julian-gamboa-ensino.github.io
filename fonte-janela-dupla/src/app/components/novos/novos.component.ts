@@ -61,6 +61,24 @@ ngOnInit() {
     const par = this.activatedRoute.snapshot.paramMap.get('parametro');
     this.etiqueta=par+"";
     this.getUrl_imagem_METODO();
+//Para que as imagens avancem de forma automática
+    this.avanco_certificados_automatico(this.indice_imagen);
+}
+
+avanco_certificados_automatico(entrada:number)
+{
+  //console.log("avanco_certificados_automatico "+entrada);
+  setInterval(() => { this.avanco_certificados(entrada); }, 3*1000); 
+
+}
+
+avanco_certificados(entrada:number) {
+  if(this.indice_imagen === this.maximo_indice_imagen) 
+  {
+    this.indice_imagen=0;
+    console.log("avanco_certificados   "+this.indice_imagen);
+  }
+  this.indice_imagen++;  
 }
 
 
