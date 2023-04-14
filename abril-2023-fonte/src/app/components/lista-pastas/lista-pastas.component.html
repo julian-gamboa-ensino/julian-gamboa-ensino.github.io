@@ -1,0 +1,25 @@
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">    
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Tecnologia
+        </button>
+        <ul class="dropdown-menu">
+          <a class="dropdown-item" href="./novo/novo">novo</a>
+          <li *ngFor="let etiquetas of nome_pasta" >                
+            <a class="dropdown-item" href="./{{etiquetas}}/{{etiquetas}}">{{etiquetas}}</a>
+          </li>
+        </ul>
+      </div>
+      
+      
+    </ul>
+  </div>
+</nav>
+
+
+
+
