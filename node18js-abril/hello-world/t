@@ -1,0 +1,62 @@
+
+
+
+
+
+
+
+
+
+
+
+const serverless = require('serverless-http');
+const express = require('express');
+
+const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+
+app.get('/algo/', (req, res) => {
+  res.send({ application: 'Domingo, Abril 16', version: '1' });
+  //res.send({'statusCode': 200});
+});
+
+//lambdaHandler
+module.exports.lambdaHandler = serverless(app);
+
+
+/*
+
+'body': JSON.stringify({        message: 'Abril , 2023 , ----   ',    }));
+
+
+module.exports.lambdaHandler = async (context, req) => {
+  context.res = await lambdaHandler(context, req);
+}
+*/
+
+/*
+
+
+
+const lambdaHandler = async (event, context) => {
+
+  try {
+     
+
+      return {
+          'statusCode': 200,
+          'body': JSON.stringify({
+              message: 'Abril , 2023 , ----   ',
+          })
+      }
+  } catch (err) {
+      console.log(err);
+      return err;
+  }
+};
+
+module.exports.lambdaHandler = lambdaHandler;
+*/

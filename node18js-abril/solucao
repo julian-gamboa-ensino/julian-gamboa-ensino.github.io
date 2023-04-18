@@ -1,0 +1,149 @@
+import path  from 'path';
+
+/******************************************************
+*  
+*******************************************************/
+
+import {local_index,mime,diretorio_base} from '../configuracoes.js';
+import fs  from 'fs';
+
+import querystring  from 'querystring';
+
+export function lendo_png(req, res, next,complemento_endereco) {
+   
+   var dir = path.join(diretorio_base, complemento_endereco); 
+
+   var previo_file = path.join(dir, req.path);  
+
+   var decodificando_endereco_url=querystring.parse(previo_file);
+   
+   var file=Object.keys(decodificando_endereco_url)[0];  
+   var type = mime[path.extname(file).slice(1)] || 'text/plain';
+//Envio do arquivo por PIPE
+   var stream_pastas_locais = fs.createReadStream(file);
+   
+   stream_pastas_locais.setEncoding('base64'); 
+   //stream_pastas_locais.setEncoding('UTF8'); base64
+
+   stream_pastas_locais.on('open', function () {
+       res.set('Content-Type', type);
+       //stream_pastas_locais.pipe(res);
+
+   });
+//Em caso de ERRO deve-se liberar para o seguinte:
+   stream_pastas_locais.on('error', function (err) {
+       res.statusCode=404;
+       res.send("Erro função (entregando PNG) 2022, Janeiro "+req.path);
+       //next();
+   });
+
+   //////////////////////////////////
+
+   console.log(previo_file); 
+   console.log("lendo_png  "+type)
+
+   let data = '';
+   
+   // Handle stream events --> data, end,
+stream_pastas_locais.on('data', function(chunk) {
+   data += chunk;
+});
+   
+
+   stream_pastas_locais.on('end', function(){
+//console.log(data);
+//console.log(dataUrlEdit);
+
+
+//var img = Buffer.from(dataUrlEdit, 'base64');
+//var saida= Buffer.alloc(data.length);
+//saida.write(data, 'base64');
+//saida.write(data);
+
+var saida= Buffer.from(data, 'base64');
+
+var dataUrl = "data:image/png;base64,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";
+var dataUrlEdit = dataUrl.replace(/data:image\/png;base64,/, '');
+//console.log(dataUrlEdit);
+var img = Buffer.from(dataUrlEdit, 'base64');
+
+res.writeHead(200, {
+    'Content-Type': 'image/png', 
+ });
+ 
+ console.log("----------------dataUrlEdit                  "+dataUrlEdit); 
+ console.log("----------------saida                 "+saida);
+ 
+ console.log("saida.length     (local)             "+saida.length); 
+
+ console.log("img.length                  "+img.length); 
+ console.log("data.length                 "+data.length);
+ console.log("dataUrlEdit.length    (Original)              "+dataUrlEdit.length); 
+res.end(saida);
+
+
+
+   });
+
+}
+
+/*
+
+
+Buffer.from
+
+
+app.get('/testando', function (req, res){
+   var dataUrl = data:image/png;base64,
+   var dataUrlEdit = dataUrl.replace(/data:image\/png;base64,/, '');
+   var img = Buffer.from(dataUrlEdit, 'base64');
+   res.writeHead(200, {
+     'Content-Type': 'image/png',
+   });
+   res.end(img);
+})
+
+*/
+
+
+/*
+   fs.stat(file, function(error, stat) {
+      if (error) { throw error; }
+      console.log("-------------stat.size----------------            "+stat.size); 
+    }); 
+*/
+
+
+
+/*
+
+   
+   
+   
+   var dir = path.join(diretorio_base, complemento_endereco); 
+
+   var previo_file = path.join(dir, req.path);  
+
+   var decodificando_endereco_url=querystring.parse(previo_file);
+   var file=Object.keys(decodificando_endereco_url)[0];  
+
+   var type = mime[path.extname(file).slice(1)] || 'text/plain';
+
+console.log(previo_file); 
+console.log("lendo_png  "+type)
+   
+//Envio do arquivo por PIPE
+   var stream_pastas_locais = fs.createReadStream(file);
+   //var stream_pastas_locais = fs.createReadStream(file, { encoding: 'base64' });
+
+   stream_pastas_locais.on('open', function () {
+      console.log("----------------Content-Type-------------------------------"); 
+
+       res.set('Content-Type', type);
+       stream_pastas_locais.pipe(res);
+   });
+
+  stream_pastas_locais.on('end', function () {
+   console.log("-----------------------end--------------------------------"); 
+     });
+*/
