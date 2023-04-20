@@ -1,4 +1,4 @@
-
+export const stage="Prod"; 
 
 export const mime = {
     html: 'text/html',
@@ -19,7 +19,9 @@ As fotos classificadas (e colocadas em pastas) serão colocadas aqui
 e o que esteja fora da pasta --> não será considerado
 ****************************/
 
-export const pasta_FOTOS_classificadas = '../classificadas';
+export const pasta_FOTOS_classificadas = '../Prod/classificadas';
+
+export const pasta_FOTOS_novas = '../Prod/'; 
 
 export const diretorio_base="";
 

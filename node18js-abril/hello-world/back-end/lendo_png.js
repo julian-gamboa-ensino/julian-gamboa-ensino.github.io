@@ -13,7 +13,15 @@ export function lendo_png(req, res, next,complemento_endereco) {
    
    var dir = path.join(diretorio_base, complemento_endereco); 
 
-   var previo_file = path.join(dir, req.path);  
+   var previo_file = path.join(dir, req.path).replace("novas/","");  
+
+   //console.log(previo_file.replace("novas/",""));    console.log("lendo_png  "+type)
+
+   //previo_file="/home/julian/Desktop/julian-gamboa-ensino.github.io/node18js-abril/hello-world/Prod/pequeno-2023-02-11-hora-15-04-40.png";
+
+   //previo_file="Prod/pequeno-2023-02-11-hora-15-04-40.png";
+
+   console.log(previo_file);
 
    var decodificando_endereco_url=querystring.parse(previo_file);
    
@@ -30,11 +38,11 @@ export function lendo_png(req, res, next,complemento_endereco) {
 //////////////////////////////////  Erro
    stream_pastas_locais.on('error', function (err) {
        res.statusCode=404;
-       res.send("Erro função (entregando PNG) 2022, Janeiro "+req.path);
+       res.send("Erro função (entregando PNG) 2023, Abril "+req.path);
        //next();
    });
 
-//   console.log(previo_file);    console.log("lendo_png  "+type)
+   
 //////////////////////////////////  DATÄ
    let data = '';
    stream_pastas_locais.on('data', function(chunk) {

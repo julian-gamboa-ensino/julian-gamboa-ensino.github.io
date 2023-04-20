@@ -19,9 +19,9 @@ export function entregando_index(req, res, next) {
        
        var dir = path.join(__dirname, local_index); 
        
-       var previo_file = path.join(dir, req.path);   
-   
-
+       //var previo_file = path.join(dir, req.path);   
+       var previo_file = path.join(dir, req.path.replace(/\/$/, '/index.html'));   
+       
        var decodificando_endereco_url=querystring.parse(previo_file);
    
        var file=Object.keys(decodificando_endereco_url)[0];  

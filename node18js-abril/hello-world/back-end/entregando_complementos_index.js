@@ -27,7 +27,7 @@ export function entregando_complementos_index(req, res, next) {
 
     var type = mime[path.extname(file).slice(1)] || 'text/plain';
 
-//console.log("/**********                /**********       "+type)
+console.log("/**********                /**********       "+type)
 
 //Envio do arquivo por PIPE
     var stream_pastas_locais = fs.createReadStream(file);
@@ -39,6 +39,8 @@ export function entregando_complementos_index(req, res, next) {
 
 //Em caso de ERRO deve-se liberar para o seguinte:
     stream_pastas_locais.on('error', function (err) {
+console.log(" (entregando_complementos_index)  "+file);
+
         res.send("FUNC entregando_complementos_index "+req.path);
         next();
     });

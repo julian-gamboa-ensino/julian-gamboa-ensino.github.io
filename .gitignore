@@ -1,7 +1,7 @@
 apagar 
 
 # Images
-
+*.png
 *.jpg
 *.webp
 
