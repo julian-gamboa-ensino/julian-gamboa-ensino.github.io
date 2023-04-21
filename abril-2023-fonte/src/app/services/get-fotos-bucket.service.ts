@@ -22,7 +22,8 @@ export class GetFotosBucketService {
   //"https://cv-julian-2022.s3.us-west-2.amazonaws.com/conteudo_pasta/";
   //"https://pj4uh68hs7.execute-api.us-east-2.amazonaws.com/Prod/lista";
   //"http://localhost:8080/lista";
-  "http://localhost:3000/Prod/novas";
+  //"http://localhost:3000/Prod/novas";
+  "https://pu576rnnb0.execute-api.us-east-1.amazonaws.com/Prod/novas";
   
 
 // injetando o HttpClient

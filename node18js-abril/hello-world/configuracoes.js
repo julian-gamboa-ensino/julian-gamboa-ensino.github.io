@@ -21,7 +21,7 @@ e o que esteja fora da pasta --> não será considerado
 
 export const pasta_FOTOS_classificadas = '../Prod/classificadas';
 
-export const pasta_FOTOS_novas = '../Prod/'; 
+export const pasta_FOTOS_novas = '../novas/'; 
 
 export const diretorio_base="";
 

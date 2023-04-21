@@ -27,7 +27,7 @@ export function entregando_complementos_index(req, res, next) {
 
     var type = mime[path.extname(file).slice(1)] || 'text/plain';
 
-console.log("/**********                /**********       "+type)
+console.log("     (entregando_complementos_index)           /**********       "+type)
 
 //Envio do arquivo por PIPE
     var stream_pastas_locais = fs.createReadStream(file);
