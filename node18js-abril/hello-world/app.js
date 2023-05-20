@@ -80,4 +80,4 @@ export const lambdaHandler = serverless(app, {
     binary: ['image/png', 'image/gif','image/jpg']
   });
 
-  app.listen(3001);
+  //app.listen(3001);
