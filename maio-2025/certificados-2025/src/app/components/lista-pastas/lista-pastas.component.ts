@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetListaPastasService } from '../../services/get-lista-pastas.service';
+import { GetListaPastasService } from '../../services/get-lista-pastas/get-lista-pastas.service';
 
 @Component({
   selector: 'app-lista-pastas',

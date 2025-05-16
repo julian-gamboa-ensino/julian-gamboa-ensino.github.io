@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetFotosBucketService } from '../../services/get-fotos-bucket.service';
+import { GetFotosBucketService } from '../../services/get-fotos-bucket/get-fotos-bucket.service';
 
 @Component({
   selector: 'app-select-classificador',

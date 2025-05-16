@@ -1,13 +1,10 @@
-import { Component, HostListener, OnInit, signal } from '@angular/core';
+import { Component, HostListener, OnInit, signal, DestroyRef, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GetFotosBucketService } from '../../services/get-fotos-bucket.service';
+import { GetFotosBucketService } from '../../services/get-fotos-bucket/get-fotos-bucket.service';
 import { JanelaModalClassificarComponent } from '../janela-modal-classificar/janela-modal-classificar.component';
-import { timer } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
+import { timer, Subscription } from 'rxjs';
 
 // Definindo as constantes para os códigos de tecla
-
 enum KEY_CODE {
   RIGHT_ARROW = 'ArrowRight',
   LEFT_ARROW = 'ArrowLeft',
@@ -19,17 +16,17 @@ enum KEY_CODE {
   selector: 'app-novos',
   standalone: true,
   imports: [JanelaModalClassificarComponent],
-  templateUrl:'./novos.component.html',
-  // Define o estilo do componente
-  // Aqui você pode adicionar estilos globais ou específicos
-  // para o componente, se necessário.
-   styles: []
+  templateUrl: './novos.component.html',
+  styles: []
 })
 export class NovosComponent implements OnInit {
-  etiqueta = signal('juridico');
+  etiqueta = signal('novo');
   indice_imagen = signal(0);
   maximo_indice_imagen = signal(0);
   imagem = signal<string[]>([]);
+  
+  private timerSubscription: Subscription | null = null; // Para gerenciar o timer
+  private destroyRef = inject(DestroyRef); // Injeta o DestroyRef
 
   constructor(
     private route: ActivatedRoute,
@@ -42,25 +39,28 @@ export class NovosComponent implements OnInit {
       this.etiqueta.set(parametro);
     }
     this.getUrlImagem();
-    timer(3000, 3000)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.avancoCertificados());
   }
-
-
 
   @HostListener('window:keyup', ['$event'])
-keyEvent(event: KeyboardEvent) {
-  if (event.key === KEY_CODE.RIGHT_ARROW) {
-    this.increment();
-  } else if (event.key === KEY_CODE.LEFT_ARROW) {
-    this.decrement();
-  } else if (event.key === KEY_CODE.UP_ARROW) {
-    this.increment10();
-  } else if (event.key === KEY_CODE.DOWN_ARROW) {
-    this.decrement10();
+  keyEvent(event: KeyboardEvent) {
+    // Pausa o timer ao interagir com as teclas
+    this.pauseTimer();
+    
+    if (event.key === KEY_CODE.RIGHT_ARROW) {
+      this.increment();
+    } else if (event.key === KEY_CODE.LEFT_ARROW) {
+      this.decrement();
+    } else if (event.key === KEY_CODE.UP_ARROW) {
+      this.increment10();
+    } else if (event.key === KEY_CODE.DOWN_ARROW) {
+      this.decrement10();
+    }
+
+    console.log(this.indice_imagen());
+    
+    // Reinicia o timer após a interação
+    this.startTimer();
   }
-}
 
   private avancoCertificados() {
     if (this.indice_imagen() >= this.maximo_indice_imagen()) {
@@ -73,8 +73,6 @@ keyEvent(event: KeyboardEvent) {
   private increment() {
     if (this.indice_imagen() + 1 < this.maximo_indice_imagen()) {
       this.indice_imagen.update(i => i + 1);
-            console.log(this.indice_imagen());
-
     }
   }
 
@@ -96,13 +94,43 @@ keyEvent(event: KeyboardEvent) {
     }
   }
 
+  private startTimer() {
+    // Evita múltiplos timers
+    this.pauseTimer();
+    
+    if (this.maximo_indice_imagen() > 0) {
+      this.timerSubscription = timer(3000, 3000).subscribe(() => {
+        this.avancoCertificados();
+      });
+      
+      // Cancela a subscrição quando o componente for destruído
+      this.destroyRef.onDestroy(() => {
+        this.pauseTimer();
+      });
+    }
+  }
+
+  private pauseTimer() {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+      this.timerSubscription = null;
+    }
+  }
+
   private getUrlImagem() {
     this.fotosService.getUrlImagem(this.etiqueta()).subscribe({
       next: (urls) => {
-        this.imagem.set(urls.reverse());
-        this.maximo_indice_imagen.set(urls.length);
+        if (urls && urls.length > 0) {
+          this.imagem.set(urls.reverse());
+          this.maximo_indice_imagen.set(urls.length);
+          this.startTimer(); // Inicia o timer após carregar as imagens
+        } else {
+          console.warn('Nenhuma imagem carregada.');
+        }
       },
-      error: (err) => console.error('Erro ao carregar imagens:', err)
+      error: (err) => {
+        console.error('Erro ao carregar imagens:', err);
+      }
     });
   }
 }

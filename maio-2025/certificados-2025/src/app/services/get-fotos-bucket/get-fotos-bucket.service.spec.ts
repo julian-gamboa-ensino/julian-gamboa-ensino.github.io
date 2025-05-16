@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GetFotosBucketService } from './get-fotos-bucket.service';
+import { GetFotosBucketService } from '../get-fotos-bucket/get-fotos-bucket.service';
 
 describe('GetFotosBucketService', () => {
   let service: GetFotosBucketService;
