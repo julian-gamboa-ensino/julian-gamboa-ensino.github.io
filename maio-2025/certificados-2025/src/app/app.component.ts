@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ListaPastasComponent } from './components/lista-pastas/lista-pastas.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [RouterOutlet, ListaPastasComponent],
+  template: `
+    <app-lista-pastas></app-lista-pastas>
+    <main role="main" class="container">
+      <router-outlet></router-outlet>
+    </main>
+  `,
+  styles: []
 })
 export class AppComponent {
   title = 'certificados-2025';
