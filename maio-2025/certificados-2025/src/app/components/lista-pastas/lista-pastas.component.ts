@@ -4,9 +4,8 @@ import { GetListaPastasService } from '../../services/get-lista-pastas.service';
 @Component({
   selector: 'app-lista-pastas',
   standalone: true,
-  template: `
-
-  `,
+  templateUrl: './lista-pastas.component.html',
+  styleUrls: ['./lista-pastas.component.css'],
   styles: []
 })
 export class ListaPastasComponent implements OnInit {

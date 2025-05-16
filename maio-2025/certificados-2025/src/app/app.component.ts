@@ -6,12 +6,8 @@ import { ListaPastasComponent } from './components/lista-pastas/lista-pastas.com
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, ListaPastasComponent],
-  template: `
-    <app-lista-pastas></app-lista-pastas>
-    <main role="main" class="container">
-      <router-outlet></router-outlet>
-    </main>
-  `,
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
   styles: []
 })
 export class AppComponent {
