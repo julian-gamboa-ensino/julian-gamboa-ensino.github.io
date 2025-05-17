@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GetFotosBucketService } from '../../services/get-fotos-bucket/get-fotos-bucket.service';
 import { JanelaModalClassificarComponent } from '../janela-modal-classificar/janela-modal-classificar.component';
 import { timer, Subscription } from 'rxjs';
+import { ListaPastasComponent } from '../lista-pastas/lista-pastas.component';
 
 // Definindo as constantes para os códigos de tecla
 enum KEY_CODE {
@@ -15,7 +16,7 @@ enum KEY_CODE {
 @Component({
   selector: 'app-novos',
   standalone: true,
-  imports: [JanelaModalClassificarComponent],
+  imports: [JanelaModalClassificarComponent,ListaPastasComponent],
   templateUrl: './novos.component.html',
   styles: []
 })
@@ -56,7 +57,7 @@ export class NovosComponent implements OnInit {
       this.decrement10();
     }
 
-    console.log(this.indice_imagen());
+    //console.log(this.indice_imagen());
     
     // Reinicia o timer após a interação
     this.startTimer();
