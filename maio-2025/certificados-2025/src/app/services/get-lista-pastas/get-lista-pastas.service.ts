@@ -15,7 +15,7 @@ export class GetListaPastasService {
   private readonly http = inject(HttpClient);
   private readonly url = environment.useMock
     ? '/assets/mock/pastas.json' // Adicionada barra inicial para consistência com o servidor
-    : `${environment.apiUrl}/pastas.json`;
+    : `${environment.apiPastas}`;
   private cache$: Observable<string[]> | null = null;
   private readonly fallbackPastas: string[] = ['error', '2025'];
 
@@ -27,7 +27,7 @@ export class GetListaPastasService {
     const requestUrl = etiqueta ? `${this.url}/${etiqueta}` : this.url;
     console.log('Tentando carregar pastas de:', requestUrl); // Depuração
     this.cache$ = this.http.get<string[]>(requestUrl).pipe(
-      retry({ count: 1, delay: 1000 }),
+      retry({ count: 1, delay: 10000 }),
       catchError((error) => {
         console.warn('Falha ao carregar pastas, usando fallback:', error.message);
         return of(this.fallbackPastas);
