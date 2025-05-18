@@ -68,10 +68,12 @@
                       alt="Image {{ row + col + 1 }}"
                       style="height: 225px; width: 100%; display: block;"
                     />
-                    <app-janela-modal-classificar
-                      [nome_imagem]="imagem()[indice_imagen() + row + col]"
-                      [etiqueta_imagem]="etiqueta()"
-                    ></app-janela-modal-classificar>
+<app-janela-modal-classificar
+  [nome_imagem]="imagem()[indice_imagen()]"
+  [etiqueta_imagem]="etiqueta()"
+  (modalOpened)="pauseTimer()"
+  (modalClosed)="startTimer()">
+</app-janela-modal-classificar>
                   </div>
                 </div>
               }

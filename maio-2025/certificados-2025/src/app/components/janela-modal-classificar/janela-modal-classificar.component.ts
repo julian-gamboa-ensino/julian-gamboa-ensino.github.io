@@ -1,46 +1,42 @@
-
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectClassificadorComponent } from '../select-classificador/select-classificador.component';
+import { TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-janela-modal-classificar',
   standalone: true,
   imports: [SelectClassificadorComponent],
-  template: `
-    <ng-template #content let-modal>
-      <div class="modal-header">
-        <h4 class="modal-title">Tecnologia</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <app-select-classificador></app-select-classificador>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('ETIQUETA: ' + etiqueta_imagem)">
-          Tecnologia ({{etiqueta_imagem}})
-        </button>
-      </div>
-    </ng-template>
-    <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
-      {{etiqueta_imagem}}
-    </button>
-  `,
-  styles: []
+  templateUrl: './janela-modal-classificar.component.html',
+  styleUrls: ['./janela-modal-classificar.component.css'],
 })
-export class JanelaModalClassificarComponent {
+export class JanelaModalClassificarComponent implements OnInit {
   @Input() nome_imagem: string = '';
   @Input() etiqueta_imagem: string = '';
+  imagemFixa: string = '';
+  @Output() modalOpened = new EventEmitter<void>();
+  @Output() modalClosed = new EventEmitter<string>();
 
   constructor(private readonly modalService: NgbModal) {}
 
-  open(content: any) {
+  ngOnInit() {
+    console.log('Inicializando componente. Nome da imagem:', this.nome_imagem);
+    console.log('Etiqueta da imagem:', this.etiqueta_imagem);
+  }
+
+  open(content: TemplateRef<any>) {
+    this.imagemFixa = this.nome_imagem;
+    console.log('Abrindo modal com imagem fixa:', this.imagemFixa, 'e etiqueta:', this.etiqueta_imagem);
+    this.modalOpened.emit(); // Notifica que o modal foi aberto
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-      (result) => console.log(`Modal fechado com: ${result}`),
-      (reason) => console.log(`Modal dispensado: ${reason}`)
+      (result) => {
+        console.log(`Modal fechado com: ${result}`);
+        this.modalClosed.emit(result); // Notifica que o modal foi fechado
+      },
+      (reason) => {
+        console.log(`Modal dispensado: ${reason}`);
+        this.modalClosed.emit(reason); // Notifica que o modal foi dispensado
+      }
     );
   }
 }

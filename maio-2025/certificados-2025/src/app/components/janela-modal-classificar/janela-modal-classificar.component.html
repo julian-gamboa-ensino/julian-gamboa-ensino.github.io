@@ -1,1 +1,21 @@
-<p>janela-modal-classificar works!</p>
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Classificar Certificado</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="text-center mb-3">
+      <img [src]="nome_imagem" alt="Certificado" class="img-fluid" style="max-height: 400px; max-width: 100%;" />
+    </div>
+    <div>
+      <p><strong>Etiqueta atual:</strong> {{etiqueta_imagem || 'Nenhuma'}}</p>
+      <app-select-classificador></app-select-classificador>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel')">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('Save')">Salvar</button>
+  </div>
+</ng-template>
+
+<button class="btn btn-primary" (click)="open(modalContent)">Classificar Imagem</button>

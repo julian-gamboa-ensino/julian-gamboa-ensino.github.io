@@ -95,7 +95,7 @@ export class NovosComponent implements OnInit {
     }
   }
 
-  private startTimer() {
+  public startTimer() {
     // Evita múltiplos timers
     this.pauseTimer();
     
@@ -111,12 +111,21 @@ export class NovosComponent implements OnInit {
     }
   }
 
-  private pauseTimer() {
+  public pauseTimer() {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
       this.timerSubscription = null;
     }
   }
+
+  // No NovosComponent
+modalOpened() {
+  this.pauseTimer();
+}
+
+modalClosed(result: string) {
+  this.startTimer();
+}
 
   private getUrlImagem() {
     this.fotosService.getUrlImagem(this.etiqueta()).subscribe({
