@@ -33,10 +33,7 @@ export class JanelaModalClassificarComponent implements OnInit {
         console.log(`Modal fechado com: ${result}`);
         this.modalClosed.emit(result); // Notifica que o modal foi fechado
       },
-      (reason) => {
-        console.log(`Modal dispensado: ${reason}`);
-        this.modalClosed.emit(reason); // Notifica que o modal foi dispensado
-      }
+
     );
   }
 }
