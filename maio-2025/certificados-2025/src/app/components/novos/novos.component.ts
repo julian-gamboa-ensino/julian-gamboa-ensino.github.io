@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit, signal, DestroyRef, inject } from '@an
 import { ActivatedRoute } from '@angular/router';
 import { GetFotosBucketService } from '../../services/get-fotos-bucket/get-fotos-bucket.service';
 import { JanelaModalClassificarComponent } from '../janela-modal-classificar/janela-modal-classificar.component';
+import { ModalLoginComponent } from '../modal-login/modal-login.component';
 import { timer, Subscription } from 'rxjs';
 import { ListaPastasComponent } from '../lista-pastas/lista-pastas.component';
 
@@ -16,7 +17,7 @@ enum KEY_CODE {
 @Component({
   selector: 'app-novos',
   standalone: true,
-  imports: [JanelaModalClassificarComponent,ListaPastasComponent],
+  imports: [JanelaModalClassificarComponent,ListaPastasComponent,ModalLoginComponent],
   templateUrl: './novos.component.html',
   styles: []
 })
