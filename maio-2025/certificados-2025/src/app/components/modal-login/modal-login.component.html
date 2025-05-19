@@ -19,4 +19,10 @@
 
 
 
-<button class="btn btn-primary" (click)="open(modalContent)">Login</button>
+<button class="btn btn-primary" (click)="open(modalContent)">
+  @if (user) {
+  Login
+  } @else {
+  Sign Out
+  }
+</button>

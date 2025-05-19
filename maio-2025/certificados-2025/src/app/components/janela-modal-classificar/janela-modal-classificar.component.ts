@@ -1,12 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SelectClassificadorComponent } from '../select-classificador/select-classificador.component';
 import { TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-janela-modal-classificar',
   standalone: true,
-  imports: [SelectClassificadorComponent],
+  imports: [],
   templateUrl: './janela-modal-classificar.component.html',
   styleUrls: ['./janela-modal-classificar.component.css'],
 })

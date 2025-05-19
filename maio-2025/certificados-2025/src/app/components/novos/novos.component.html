@@ -56,12 +56,16 @@
     <nav class="navbar navbar-dark bg-dark box-shadow">
       <div class="container d-flex justify-content-between">
         <app-lista-pastas></app-lista-pastas>
-        
-        <app-modal-login></app-modal-login>
+
+        <app-modal-login (authStateChange)="handleAuthStateChange($event)">
+
+        </app-modal-login>
 
         <p class="navbar-brand d-flex align-items-center">
 
           <strong>{{ etiqueta() }} (Certificados 2025)</strong>
+
+
 
         </p>
         <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
@@ -83,9 +87,14 @@
             <div class="card mb-4 box-shadow">
               <img id="imagem-{{ row + col + 1 }}" [src]="imagem()[indice_imagen() + row + col]" class="card-img-top"
                 alt="Image {{ row + col + 1 }}" style="height: 225px; width: 100%; display: block;" />
+
+              @if (isAuthenticated()) {
+
               <app-janela-modal-classificar [nome_imagem]="imagem()[indice_imagen()+ row + col]"
                 [etiqueta_imagem]="etiqueta()" (modalOpened)="pauseTimer()" (modalClosed)="startTimer()">
               </app-janela-modal-classificar>
+              
+              }
             </div>
           </div>
           }

@@ -17,7 +17,7 @@ enum KEY_CODE {
 @Component({
   selector: 'app-novos',
   standalone: true,
-  imports: [JanelaModalClassificarComponent,ListaPastasComponent,ModalLoginComponent],
+  imports: [JanelaModalClassificarComponent, ListaPastasComponent, ModalLoginComponent],
   templateUrl: './novos.component.html',
   styles: []
 })
@@ -26,14 +26,16 @@ export class NovosComponent implements OnInit {
   indice_imagen = signal(0);
   maximo_indice_imagen = signal(0);
   imagem = signal<string[]>([]);
-  
+  isAuthenticated = signal(false); // Estado de autenticação
+
+
   private timerSubscription: Subscription | null = null; // Para gerenciar o timer
   private destroyRef = inject(DestroyRef); // Injeta o DestroyRef
 
   constructor(
     private route: ActivatedRoute,
     private fotosService: GetFotosBucketService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const parametro = this.route.snapshot.paramMap.get('parametro');
@@ -47,7 +49,7 @@ export class NovosComponent implements OnInit {
   keyEvent(event: KeyboardEvent) {
     // Pausa o timer ao interagir com as teclas
     this.pauseTimer();
-    
+
     if (event.key === KEY_CODE.RIGHT_ARROW) {
       this.increment();
     } else if (event.key === KEY_CODE.LEFT_ARROW) {
@@ -59,7 +61,7 @@ export class NovosComponent implements OnInit {
     }
 
     //console.log(this.indice_imagen());
-    
+
     // Reinicia o timer após a interação
     this.startTimer();
   }
@@ -99,12 +101,12 @@ export class NovosComponent implements OnInit {
   public startTimer() {
     // Evita múltiplos timers
     this.pauseTimer();
-    
+
     if (this.maximo_indice_imagen() > 0) {
       this.timerSubscription = timer(3000, 3000).subscribe(() => {
         this.avancoCertificados();
       });
-      
+
       // Cancela a subscrição quando o componente for destruído
       this.destroyRef.onDestroy(() => {
         this.pauseTimer();
@@ -120,13 +122,18 @@ export class NovosComponent implements OnInit {
   }
 
   // No NovosComponent
-modalOpened() {
-  this.pauseTimer();
-}
+  modalOpened() {
+    this.pauseTimer();
+  }
 
-modalClosed(result: string) {
-  this.startTimer();
-}
+  modalClosed(result: string) {
+    this.startTimer();
+  }
+
+  // Manipula mudanças no estado de autenticação
+  handleAuthStateChange(isAuthenticated: boolean) {
+    this.isAuthenticated.set(isAuthenticated);
+  }
 
   private getUrlImagem() {
     this.fotosService.getUrlImagem(this.etiqueta()).subscribe({
