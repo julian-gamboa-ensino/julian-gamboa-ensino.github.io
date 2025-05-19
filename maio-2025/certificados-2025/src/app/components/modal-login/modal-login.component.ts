@@ -3,7 +3,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { fetchAuthSession, signOut } from '@aws-amplify/auth';
 
-
 @Component({
   selector: 'app-modal-login',
   imports: [AmplifyAuthenticatorModule],
@@ -18,6 +17,10 @@ export class ModalLoginComponent {
   constructor(private readonly modalService: NgbModal) { }
 
   async ngOnInit() {
+    await this.checkAuthState();
+  }
+
+  async checkAuthState() {
     try {
       const session = await fetchAuthSession();
       if (session.tokens) {
@@ -36,21 +39,25 @@ export class ModalLoginComponent {
     }
   }
 
-
-  open(content: TemplateRef<any>) {
-
-    console.log('Abrindo modal de login');
-
-
-
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-      (result) => {
-        console.log('fechou o modal de login com:');
-      },
-
-    );
+  updateUser(authUser: any) {
+    this.user = { username: authUser.username || 'Usuário' };
+    this.authStateChange.emit(true); // Emite que o usuário está logado
+    console.log('Usuário atualizado:', this.user);
   }
 
+  open(content: TemplateRef<any>) {
+    console.log('Abrindo modal de login');
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        console.log('Fechou o modal de login com:', result);
+        this.checkAuthState(); // Verifica o estado após fechar o modal
+      },
+      (reason) => {
+        console.log('Modal fechado por:', reason);
+        this.checkAuthState(); // Verifica o estado após fechar o modal
+      }
+    );
+  }
 
   async logSignOut() {
     try {
@@ -62,5 +69,4 @@ export class ModalLoginComponent {
       console.error('Erro ao deslogar:', err);
     }
   }
-
 }

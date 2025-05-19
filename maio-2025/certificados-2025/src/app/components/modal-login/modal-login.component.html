@@ -9,7 +9,7 @@
         <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
           <div class="welcome-container">
             <h1>Welcome, {{ user.username }}!</h1>
-            <button class="sign-out-btn" (click)="signOut(); logSignOut()">Sign Out</button>
+            <button class="sign-out-btn" (click)="updateUser(user); signOut(); logSignOut(); modal.close('Sign out')">Sign Out</button>
           </div>
         </ng-template>
       </amplify-authenticator>
@@ -17,12 +17,10 @@
   </div>
 </ng-template>
 
-
-
-<button class="btn btn-primary" (click)="open(modalContent)">
+<button class="btn btn-primary" (click)="user ? logSignOut() : open(modalContent)">
   @if (user) {
-  Login
+    Sign Out
   } @else {
-  Sign Out
+    Login
   }
 </button>
