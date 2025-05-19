@@ -1,9 +1,22 @@
-<div class="container-fluid d-flex justify-content-between align-items-center">
-  <div class="dropdown">
-    <button class="btn btn-custom rounded-pill shadow-sm" type="button" data-bs-toggle="dropdown"
-      aria-expanded="false">
-      Login
-    </button>
-
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Login</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
-</div>
+  <div class="modal-body">
+    <div class="text-center mb-3">
+      <amplify-authenticator>
+        <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
+          <div class="welcome-container">
+            <h1>Welcome, {{ user.username }}!</h1>
+            <button class="sign-out-btn" (click)="signOut(); logSignOut()">Sign Out</button>
+          </div>
+        </ng-template>
+      </amplify-authenticator>
+    </div>
+  </div>
+</ng-template>
+
+
+
+<button class="btn btn-primary" (click)="open(modalContent)">Login</button>
