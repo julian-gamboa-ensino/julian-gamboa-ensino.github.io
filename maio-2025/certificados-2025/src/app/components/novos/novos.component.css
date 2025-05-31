@@ -1,0 +1,16 @@
+    .box-shadow {
+      box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    }
+
+    .navbar-brand svg {
+      margin-right: 0.5rem;
+    }
+
+    .card-img-top {
+      object-fit: cover;
+    }
+
+    footer {
+      padding: 2rem 0;
+      border-top: 1px solid #dee2e6;
+    }
